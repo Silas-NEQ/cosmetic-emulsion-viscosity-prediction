@@ -2,9 +2,6 @@
 
 # Library used
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
@@ -25,9 +22,9 @@ print(f'X Shape: {x.shape} | Y Shape: {y.shape}')
 
 # Encoding
 # Label encoder
-encoder = LabelEncoder()
-x[:,6] = encoder.fit_transform(x[:,6])
-jb.dump(encoder, 'data\\processed\\encoder.pkl')
+labelencoder = LabelEncoder()
+x[:,6] = labelencoder.fit_transform(x[:,6])
+jb.dump(labelencoder, 'data\\processed\\labelencoder.pkl')
 # OneHot encoder
 onehotencoder = ColumnTransformer(
     transformers=[('OneHot', OneHotEncoder(sparse_output=False), [6])], 
