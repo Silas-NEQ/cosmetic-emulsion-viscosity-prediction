@@ -8,3 +8,9 @@ import numpy as np
 
 # Database
 df = pd.read_csv('data\\raw\\cosmetic_emulsion_data.csv')
+
+# X
+x = df.iloc[:, 1:8].to_numpy()
+
+# Y
+y = df.iloc[:, 8].to_numpy()
