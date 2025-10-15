@@ -32,17 +32,18 @@ numerical_pred = df.select_dtypes(include=['number']).columns.drop('Viscosidade_
 for col in numerical_pred:
     sns.scatterplot(df, y='Viscosidade_final_cP', x=col)
     plt.title(f'{col} x Viscosidade_final_cP')
-    #plt.show()
-    #input('Press Enter to continue...')
+    plt.show()
+    input('Press Enter to continue...')
 
 # Boxplots
 for col in numerical_pred:
     sns.boxplot(df, y=col)
     plt.title(f"{col} Distribution")
-    #plt.show()
-    #input('Press Enter to continue...')
+    plt.show()
+    input('Press Enter to continue...')
 
 # Correlation
+# Concentracao_soluto_%: 0.85 | Temperatura_°C: -0.30 | Tempo_de_reacao_min: 0.24
 corr = df.select_dtypes(include=['number']).corr()
 sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f')
 plt.title('Correlation Map')
