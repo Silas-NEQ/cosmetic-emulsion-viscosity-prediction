@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 
 # Database
@@ -30,3 +30,7 @@ onehotencoder = ColumnTransformer(
     remainder='passthrough')
 x = onehotencoder.fit_transform(x)
 print(f'New X shape: {x.shape}')
+
+# Feature scaling
+scaler = StandardScaler()
+x = scaler.fit(x)
