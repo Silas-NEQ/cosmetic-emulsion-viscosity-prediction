@@ -8,6 +8,8 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
+import joblib as jb
+import pickle
 
 # Database
 df = pd.read_csv('data\\raw\\cosmetic_emulsion_data.csv')
@@ -25,19 +27,26 @@ print(f'X Shape: {x.shape} | Y Shape: {y.shape}')
 # Label encoder
 encoder = LabelEncoder()
 x[:,6] = encoder.fit_transform(x[:,6])
+jb.dump(encoder, 'data\\processed\\encoder.pkl')
 # OneHot encoder
 onehotencoder = ColumnTransformer(
     transformers=[('OneHot', OneHotEncoder(sparse_output=False), [6])], 
     remainder='passthrough')
 x = onehotencoder.fit_transform(x)
 print(f'New X shape: {x.shape}')
+jb.dump(onehotencoder, 'data\\processed\\onehotencoder.pkl')
 
 # Feature scaling
 scaler = StandardScaler()
 x = scaler.fit_transform(x)
+jb.dump(scaler, 'data\\processed\\scaler.pkl')
 
 # Train/test split
 x_train, x_test, y_train, y_test = train_test_split(
     x, y, test_size=0.2, random_state=0)
 print(f'Shape X Train: {x_train.shape} | Shape X Test {x_test.shape}')
 print(f'Shape Y Train: {y_train.shape} | Shape Y Test {y_test.shape}')
+
+# Save processed data
+with open('data\\processed\\processed_data.pkl', mode='wb') as f:
+    pickle.dump([x_test, x_train, y_test, y_train], f)
