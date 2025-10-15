@@ -3,6 +3,7 @@
 # Libraries used
 import pickle
 import time
+import numpy as np
 from sklearn.model_selection import GridSearchCV
 from sklearn.neural_network import MLPRegressor
 from sklearn.svm import SVR
@@ -66,3 +67,14 @@ results.append(evaluate_model(
     xgboost_model, 'XGBoost', x_train, x_test, y_train, y_test))
 
 print(f'Lista de reultados {results}')
+
+# Tunning function
+def tuning_model(model, name, params, x_train, x_test, y_train, y_test):
+    grid_search = GridSearchCV(estimator=model, param_grid=params)
+    x = np.concatenate(x_train, x_test, axis=0)
+    y = np.concatenate(y_train, y_test, axis=0)
+    grid_search.fit(x, y)
+    best_params = grid_search.best_params_
+    best_accuracy = grid_search.best_score_
+    print(f'Model: {name} | Best Result: {best_accuracy}')
+    print(f'Best Parameters: {best_params}')
