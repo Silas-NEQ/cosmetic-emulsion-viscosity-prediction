@@ -7,6 +7,7 @@ import seaborn as sns
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import train_test_split
 
 # Database
 df = pd.read_csv('data\\raw\\cosmetic_emulsion_data.csv')
@@ -33,4 +34,10 @@ print(f'New X shape: {x.shape}')
 
 # Feature scaling
 scaler = StandardScaler()
-x = scaler.fit(x)
+x = scaler.fit_transform(x)
+
+# Train/test split
+x_train, x_test, y_train, y_test = train_test_split(
+    x, y, test_size=0.2, random_state=0)
+print(f'Shape X Train: {x_train.shape} | Shape X Test {x_test.shape}')
+print(f'Shape Y Train: {y_train.shape} | Shape Y Test {y_test.shape}')
