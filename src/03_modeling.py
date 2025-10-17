@@ -12,6 +12,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.pipeline import Pipeline
 
 # Database
 with open('data\\processed\\processed_data.pkl', mode='rb') as f:
@@ -71,10 +72,48 @@ print(f'Lista de reultados {results}')
 # Tunning function
 def tuning_model(model, name, params, x_train, x_test, y_train, y_test):
     grid_search = GridSearchCV(estimator=model, param_grid=params)
-    x = np.concatenate(x_train, x_test, axis=0)
-    y = np.concatenate(y_train, y_test, axis=0)
+    x = np.concatenate((x_train, x_test), axis=0)
+    y = np.concatenate((y_train, y_test), axis=0)
     grid_search.fit(x, y)
     best_params = grid_search.best_params_
     best_accuracy = grid_search.best_score_
     print(f'Model: {name} | Best Result: {best_accuracy}')
     print(f'Best Parameters: {best_params}')
+    return {'Model': name, 'Best Score': best_accuracy, 'Best Parameters': best_params}
+
+# Tuning models
+best_params = []
+# Neural Network (0.8888)
+# 'activation': 'relu', 'alpha': 0.01, 'hidden_layer_sizes': (50,), 
+# 'learning_rate_init': 0.001, 'solver': 'lbfgs'
+nn_grid_params = {'hidden_layer_sizes': [(50,), (100,), (100, 50)], 
+                  'activation': ['relu', 'tanh', 'logistic'], 
+                  'alpha': [1e-4, 1e-3, 1e-2], 'learning_rate_init': [1e-3, 1e-4, 5e-4], 
+                  'solver':['adam', 'lbfgs']}
+best_params.append(tuning_model(
+    MLPRegressor(), 'Neural Network', nn_grid_params, x_train, x_test,y_train, y_test))
+
+# Random Forest (0.8743)
+# 'max_depth': 20, 'max_features': 0.5, 'min_samples_leaf': 1, 
+# 'min_samples_split': 2, 'n_estimators': 500
+rf_grid_params = {'n_estimators':[100, 250, 500], 'max_depth': [None, 10, 20], 
+                  'min_samples_split': [2, 5], 'min_samples_leaf': [1, 2], 
+                  'max_features': ['sqrt', 0.5, 'log2']}
+best_params.append(tuning_model(RandomForestRegressor(), 'Random Forest', 
+                                rf_grid_params, x_train, x_test,y_train, y_test))
+
+# Polynomial Regressor (0.8931)
+# 'poly__degree': 2
+pipeline = Pipeline([('poly', PolynomialFeatures()),('regressor', LinearRegression())])
+poly_grid_params = {'poly__degree': [2, 3]}
+best_params.append(tuning_model(pipeline, 'Polynomial Regression', 
+                        poly_grid_params, x_train, x_test, y_train, y_test))
+
+# XGBoost (0.8827)
+# 'learning_rate': 0.05, 'max_depth': 3, 'n_estimators': 300
+xgboost_grid_params = {'n_estimators': [100, 300, 500], 'max_depth': [3, 5], 
+                       'learning_rate': [0.05, 0.1]}
+best_params.append(tuning_model(XGBRegressor(), 'XGBoost', xgboost_grid_params, 
+                                x_train, x_test, y_train, y_test))
+
+print(best_params)
