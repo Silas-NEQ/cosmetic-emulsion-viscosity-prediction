@@ -45,3 +45,18 @@ def cross_val_model(model, splits, range_test, x, y, name):
     df_summary['Total_time(s)'] = round(total_time, 2)
     df_summary['Avg_time_per_run(s)'] = round(total_time/range_test, 2)
     return df_results, df_summary
+
+# Models
+# Neural Network
+nn_model = MLPRegressor(activation='relu', alpha=0.01, hidden_layer_sizes= (50,),
+                        learning_rate_init=0.001, solver='lbfgs', max_iter=2000)
+# Random Forest
+rf_model = RandomForestRegressor(n_estimators=500, max_depth=20, max_features=0.5,
+                                 min_samples_leaf=1, min_samples_split=2)
+# Polymial Regression
+poly = PolynomialFeatures(degree=2)
+x_poly_train = poly.fit_transform(x_train)
+x_poly_test = poly.transform(x_test)
+poly_model = LinearRegression()
+# XGBoost
+xgboost_model = XGBRegressor(n_estimators=300, max_depth=3, learning_rate=0.05)
