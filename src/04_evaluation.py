@@ -44,6 +44,9 @@ def cross_val_model(model, splits, range_test, x, y, name):
     df_summary['Model'] = name
     df_summary['Total_time(s)'] = round(total_time, 2)
     df_summary['Avg_time_per_run(s)'] = round(total_time/range_test, 2)
+    cols_order = ['Model', 'R²', 'R²_std', 'MAE', 'MAE_std', 
+                  'Total_time(s)', 'Avg_time_per_run(s)']
+    df_summary = {col: df_summary[col] for col in cols_order}    
     return df_results, df_summary
 
 # Models
@@ -54,9 +57,18 @@ nn_model = MLPRegressor(activation='relu', alpha=0.01, hidden_layer_sizes= (50,)
 rf_model = RandomForestRegressor(n_estimators=500, max_depth=20, max_features=0.5,
                                  min_samples_leaf=1, min_samples_split=2)
 # Polymial Regression
-poly = PolynomialFeatures(degree=2)
-x_poly_train = poly.fit_transform(x_train)
-x_poly_test = poly.transform(x_test)
-poly_model = LinearRegression()
+poly_model = Pipeline(
+    [('poly', PolynomialFeatures(degree=2)),('regressor', LinearRegression())])
 # XGBoost
 xgboost_model = XGBRegressor(n_estimators=300, max_depth=3, learning_rate=0.05)
+
+# Evaluation
+evaluation_list = [(nn_model, 'Neural Network'), (rf_model, 'Random Forest'),
+                   (poly_model, 'Polynomial Regression'), (xgboost_model, 'XGBoost')]
+results = []
+for model, name in evaluation_list:
+    _, summary = cross_val_model(
+        model, splits=10, range_test=30, x=x_train, y=y_train, name=name)
+    results.append(summary)
+df_results = pd.DataFrame(results)
+print(df_results.sort_values(by='R²', ascending=False).to_string(index=False))
