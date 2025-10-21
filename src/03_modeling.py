@@ -2,35 +2,20 @@
 
 # Libraries used
 import pickle
-import time
-import numpy as np
-from sklearn.model_selection import GridSearchCV
 from sklearn.neural_network import MLPRegressor
 from sklearn.svm import SVR
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from xgboost import XGBRegressor
-from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.pipeline import Pipeline
+from util import evaluate_model, tuning_model
 
 # Database
 with open('data\\processed\\processed_data.pkl', mode='rb') as f:
     x_test, x_train, y_test, y_train = pickle.load(f)
 print(f'Shape X Train: {x_train.shape} | Shape X Test {x_test.shape}')
 print(f'Shape Y Train: {y_train.shape} | Shape Y Test {y_test.shape}')
-
-# Evaluation Function
-def evaluate_model(model, name, x_train, x_test, y_train, y_test):
-    time_start = time.time()
-    model.fit(x_train, y_train)
-    time_end = time.time()
-    processing_time = time_end-time_start
-    model_predict = model.predict(x_test)
-    mae = mean_absolute_error(y_test, model_predict)
-    r2 = r2_score(y_test, model_predict)
-    print(f'Model: {name} | R²: {r2:.2f} | MAE: {mae:.2f} | Processing time: {processing_time:.2f}s')
-    return {'Model': name, 'R2': r2, 'MAE': mae, 'Processing time(s)': processing_time}
 
 # Evaluate models
 results = []
@@ -68,18 +53,6 @@ results.append(evaluate_model(
     xgboost_model, 'XGBoost', x_train, x_test, y_train, y_test))
 
 print(f'Lista de reultados {results}')
-
-# Tunning function
-def tuning_model(model, name, params, x_train, x_test, y_train, y_test):
-    grid_search = GridSearchCV(estimator=model, param_grid=params)
-    x = np.concatenate((x_train, x_test), axis=0)
-    y = np.concatenate((y_train, y_test), axis=0)
-    grid_search.fit(x, y)
-    best_params = grid_search.best_params_
-    best_accuracy = grid_search.best_score_
-    print(f'Model: {name} | Best Result: {best_accuracy}')
-    print(f'Best Parameters: {best_params}')
-    return {'Model': name, 'Best Score': best_accuracy, 'Best Parameters': best_params}
 
 # Tuning models
 best_params = []
