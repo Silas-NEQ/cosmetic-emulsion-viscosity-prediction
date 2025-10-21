@@ -41,4 +41,4 @@ for model, name in evaluation_list:
 df_results = pd.DataFrame(results)
 print(df_results.sort_values(by='R²', ascending=False).to_string(index=False))
 # Saving results
-df_results.to_csv('models\\model_results.csv', index=False, sep=';')
+df_results.to_csv('data\\results\\model_results.csv', index=False, sep=';')
