@@ -9,6 +9,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from xgboost import XGBRegressor
+from util import cross_val_model
 
 # Database
 with open('data\\processed\\processed_data.pkl', mode='rb') as f:
@@ -32,3 +33,16 @@ poly_model = Pipeline(
     [('poly', PolynomialFeatures(degree=2)),('regressor', LinearRegression())])
 # XGBoost
 xgboost_model = XGBRegressor(n_estimators=300, max_depth=3, learning_rate=0.05)
+
+# Evaluation
+evaluation_list = [(nn_model, 'Neural Network'),(poly_model, 'Polynomial Regression'), 
+                   (xgboost_model, 'XGBoost')]
+results = []
+for model, name in evaluation_list:
+    _, summary = cross_val_model(
+        model, splits=10, range_test=30, x=x_train_pca, y=y_train, name=name)
+    results.append(summary)
+df_results = pd.DataFrame(results)
+print(df_results.sort_values(by='R²', ascending=False).to_string(index=False))
+# Saving results
+df_results.to_csv('data\\results\\pca_model_results.csv', index=False, sep=';')
