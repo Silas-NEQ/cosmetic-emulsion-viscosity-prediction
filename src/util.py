@@ -54,7 +54,9 @@ def cross_val_model(model, splits, range_test, x, y, name):
     df_summary['Model'] = name
     df_summary['Total_time(s)'] = round(total_time, 2)
     df_summary['Avg_time_per_run(s)'] = round(total_time/range_test, 2)
-    cols_order = ['Model', 'R²', 'R²_std', 'MAE', 'MAE_std', 
+    df_summary['R²_cv(%)'] = (df_summary['R²_std'] / df_summary['R²']) * 100
+    df_summary['MAE_cv(%)'] = (df_summary['MAE_std'] / df_summary['MAE']) * 100
+    cols_order = ['Model', 'R²', 'R²_std','R²_cv(%)', 'MAE', 'MAE_std', 'MAE_cv(%)', 
                   'Total_time(s)', 'Avg_time_per_run(s)']
     df_summary = {col: df_summary[col] for col in cols_order}    
     return df_results, df_summary
