@@ -46,7 +46,3 @@ df_results = pd.DataFrame(results)
 print(df_results.sort_values(by='R²', ascending=False).to_string(index=False))
 # Saving results
 df_results.to_csv('data\\results\\pca_model_results.csv', index=False, sep=';')
-
-# Saving PCA Transformer
-with open('data\\processed\\pca_transformer.pkl', 'wb') as f:
-    pickle.dump(pca, f)
