@@ -19,3 +19,30 @@ print(f'Shape Y Train: {y_train.shape} | Shape Y Test {y_test.shape}')
 x = pd.concat([x_train, x_test], axis=0)
 # Y
 y = pd.concat([y_train, y_test], axis=0)
+
+# Models
+# Neural Network
+nn_model = MLPRegressor(activation='relu', alpha=0.01, hidden_layer_sizes= (50,),
+                        learning_rate_init=0.001, solver='lbfgs', max_iter=2000)
+nn_model.fit(x, y)
+pickle.dump(nn_model, open('models\\neural_network_model.pkl', 'wb'))
+# Polymial Regression
+poly_model = Pipeline(
+    [('poly', PolynomialFeatures(degree=2)),('regressor', LinearRegression())])
+poly_model.fit(x, y)
+pickle.dump(poly_model, open('models\\polynomial_regression.pkl', 'wb'))
+# XGBoost
+xgboost_model = XGBRegressor(n_estimators=300, max_depth=3, learning_rate=0.05)
+xgboost_model.fit(x, y)
+pickle.dump(xgboost_model, open('models\\xgboost_model.pkl', 'wb'))
+
+# Summary
+summary = pd.DataFrame({
+    'models': ['NeuralNetwork', 'PolynomialRegression', 'XGBoost'],
+    'params': [
+        str(nn_model.get_params()),
+        str(poly_model.get_params()),
+        str(xgboost_model.get_params())
+    ]
+})
+summary.to_csv('models\\models_summary.csv', sep=';', index= False)
