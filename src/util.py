@@ -60,3 +60,23 @@ def cross_val_model(model, splits, range_test, x, y, name):
                   'Total_time(s)', 'Avg_time_per_run(s)']
     df_summary = {col: df_summary[col] for col in cols_order}    
     return df_results, df_summary
+
+# Ensemble Function
+def ensemble_score(models: dict, x, y):
+    results= {name:{'r2': 0, 'mae': 0} for name in models.keys()}
+    results['Ensemble'] = {'r2': 0, 'mae': 0}
+    # Predicts
+    preds={}
+    # Models
+    for name, model in models.items():
+        preds[name] = model.predict(x)
+        results[name]['r2'] = r2_score(y, preds[name])
+        results[name]['mae'] = mean_absolute_error(y, preds[name])
+    # Ensemble
+    preds['Ensemble'] = np.mean(np.column_stack(list(preds.values())), axis=1)
+    results['Ensemble']['r2'] = r2_score(y, preds['Ensemble'])
+    results['Ensemble']['mae'] = mean_absolute_error(y, preds['Ensemble'])
+    # Dataframes
+    df_predict = pd.DataFrame(preds)
+    df_score = pd.DataFrame(results)
+    return df_predict, df_score
