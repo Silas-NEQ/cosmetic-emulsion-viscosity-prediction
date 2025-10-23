@@ -2,6 +2,7 @@
 
 # Library used
 import pickle
+from util import ensemble_score
 
 # Database
 with open('data\\processed\\processed_data.pkl', mode='rb') as f:
@@ -16,3 +17,9 @@ nn_model = pickle.load(open('models\\neural_network_model.pkl', 'rb'))
 poly_model = pickle.load(open('models\\polynomial_regression.pkl', 'rb'))
 # XGBoost
 xgb_model = pickle.load(open('models\\xgboost_model.pkl', 'rb'))
+
+# Analyse
+finished_models = {'Neural Network': nn_model, 'Polynomial Regression': poly_model,
+                   'XGBoost': xgb_model}
+models_predicts, models_scores = ensemble_score(finished_models, x_test, y_test)
+print(models_scores)
