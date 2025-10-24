@@ -23,3 +23,4 @@ finished_models = {'Neural Network': nn_model, 'Polynomial Regression': poly_mod
                    'XGBoost': xgb_model}
 models_predicts, models_scores = ensemble_score(finished_models, x_test, y_test)
 print(models_scores)
+models_scores.to_csv('data\\results\\final_scores.csv', sep=';', index=False)
