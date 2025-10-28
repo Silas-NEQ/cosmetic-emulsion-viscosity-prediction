@@ -84,10 +84,18 @@ The ability to predict final viscosity based on monitorable process variables wo
 - **XGBoost**: Inferior performance among the 3 final models (R² = 0.885) in this specific application, but second best processing time (1.17s/run)
 - **Random Forest**: Model discarded after cross-validation process due to poorest performance. Showed the lowest R² value (R² = 0.868) and highest MAE value (MAE = 273.80), in addition to the longest execution time (38.41s/run)
 
+#### 4.2.3 Dimensionality Analysis
+A Principal Component Analysis (PCA) was conducted to assess the impact of dimensional reduction on model performance. The results demonstrated that the technique did not provide significant benefits for this specific dataset:
+
+- **Polynomial Regression**: PCA resulted in increased processing time without perceptible improvements in accuracy metrics (R²) or error (MAE)
+- **Neural Networks**: Marginal improvement in R² and slight reduction in MAE were observed; however, these enhancements were deemed insignificant compared to the computational overhead incurred
+- **XGBoost**: Reduction in execution time was noted, but accompanied by deterioration in predictive performance, with decreased R² and increased MAE
+
 ## 5. Conclusion
 
 - The 3 final models demonstrated relevant predictive capability (R² > 0.85)
 - The non-linear relationship between process variables and viscosity was adequately captured
+- Dimensionality analysis was discarded as it did not provide substantial predictive value, thus maintaining the original features for all final models.
 - The simplicity of Polynomial Regression proved advantageous compared to more complex models
 
 **Final Model Decision**
