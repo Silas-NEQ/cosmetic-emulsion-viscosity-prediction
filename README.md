@@ -23,11 +23,11 @@ cosmetic_emulsion_viscosity_predict/
 │ ├── 06_final_models.py # Final models training
 │ ├── 07_conclusion.py # Final tests
 │ └── util.py # Utility functions
-│
-├── README.md # This file 
-├── README(PT-BR).md # Project presentation (Portuguese-Br version)
+│ 
+├── README_PT-BR.md # Project presentation (Portuguese-Br version)
+├── README.md # This file
+├── REPORT_PT-BR.md # Technical report (Portuguese-Br version)
 ├── REPORT.md # Technical report 
-├── REPORT(PT-BR).md # Technical report (Portuguese-Br version)
 └── requirements.txt # Project dependencies
 
 
