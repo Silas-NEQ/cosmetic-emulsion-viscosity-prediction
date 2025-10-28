@@ -86,9 +86,17 @@ A capacidade de prever a viscosidade final com base em variáveis de processo mo
 - **XGBoost**: Performance inferior dentre os 3 modelos finais (R² = 0.885), nesta aplicação específica, porém segundo melhor tempo de processamento (1.17s/run)
 - **Random Forest**: Modelo descartado após o processo de validação cruzada devido ter o pior desempenho. Apresentou o menor valor de R² (R² = 0.868) e o maior valor de MAE (MAE = 273.80), além do maior tempo de execução (38.41s/run).
 
+#### 4.2.3 Análise Dimensional
+Uma análise de componentes principais (PCA) foi conduzida para avaliar o impacto da redução dimensional na performance dos modelos. Os resultados demonstraram que a técnica não apresentou benefícios significativos para esse conjunto de dados específico:
+
+- **Regressão Polinomial**: O PCA resultou em aumento do tempo de processamento sem melhorias perceptíveis nas métricas de accuracy (R²) ou erro (MAE)
+- **Redes Neurais**: Observou-se discreta melhoria no R² e redução marginal no MAE, contudo, estas melhorias foram consideradas insignificantes face ao acréscimo computacional incorrido
+- **XGBoost**: Verificou-se redução no tempo de execução, porém acompanhada de deterioração na performance preditiva, com decréscimo do R² e aumento do MAE
+
 ## 5. Conclusão
 - Os 3 modelos finais demonstraram capacidade preditiva relevante (R² > 0.85)
 - A relação não-linear entre variáveis de processo e viscosidade foi adequadamente capturada
+- A análise dimensional foi descartada por não agregar valor preditivo substancial, mantendo-se assim as features originais para todos os modelos finais.
 - A simplicidade da Regressão Polinomial mostrou-se vantajosa frente a modelos mais complexos
 
 **Decisão de Modelo Final**
