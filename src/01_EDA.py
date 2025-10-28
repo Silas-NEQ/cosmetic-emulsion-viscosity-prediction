@@ -14,6 +14,9 @@ print(df.head())
 # Shape
 print(df.shape)
 
+# Statstical report
+print(df.describe())
+
 # Info
 print(df.info())
 
