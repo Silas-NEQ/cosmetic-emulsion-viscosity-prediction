@@ -1,38 +1,63 @@
 # Viscosity Prediction for Cosmetic Emulsion Production
 
+![Python](https://img.shields.io/badge/Python-3.11.4-blue)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Supervised-orange)
+![Status](https://img.shields.io/badge/Status-Concluído-success)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
 🧑‍🔬 **Project developed by:** Silas Nascimento  
 **LinkedIn:** [www.linkedin.com/in/engquim-silas-nascimento](www.linkedin.com/in/engquim-silas-nascimento)
 
 🏭 **Objective:** Develop a predictive model capable of estimating the final viscosity of cosmetic emulsions, anticipating quality deviations and supporting operational adjustment decisions during production.
 
 ## 📁 Project Structure
+
+```
 cosmetic_emulsion_viscosity_predict/
 │
 ├── data/
-│ ├── raw/ # Original raw data
-│ ├── processed/ # Processed data
-│ └── results/ # Results and metrics
+│   ├── raw/                    # Original raw data
+│   ├── processed/              # Processed data
+│   └── results/                # Results and metrics
 │
-├── models/ # Trained models
-├── src/ # Source code
-│ ├── 01_EDA.py # Exploratory Data Analysis
-│ ├── 02_preprocessing.py # Pre-processing
-│ ├── 03_modeling.py # Model training
-│ ├── 04_cross_validation.py # Cross-validation
-│ ├── 05_dimensionality_analyse.py # Dimensionality analysis
-│ ├── 06_final_models.py # Final models training
-│ ├── 07_conclusion.py # Final tests
-│ └── util.py # Utility functions
-│ 
-├── README_PT-BR.md # Project presentation (Portuguese-Br version)
-├── README.md # This file
-├── REPORT_PT-BR.md # Technical report (Portuguese-Br version)
-├── REPORT.md # Technical report 
-└── requirements.txt # Project dependencies
+├── models/                     # Trained models
+├── src/                        # Source code
+│   ├── 01_EDA.py              # Exploratory Data Analysis
+│   ├── 02_preprocessing.py    # Pre-processing
+│   ├── 03_modeling.py         # Model training
+│   ├── 04_cross_validation.py # Cross-validation
+│   ├── 05_dimensionality_analyse.py # Dimensionality analysis
+│   ├── 06_final_models.py     # Final models training
+│   ├── 07_conclusion.py       # Final tests
+│   └── util.py                # Utility functions
+│
+├── README.md                  # This file
+├── README(PT-BR).md           # Project presentation (Portuguese-BR version)
+├── REPORT.md                  # Technical report 
+├── REPORT(PT-BR).md           # Technical report (Portuguese-BR version)
+└── requirements.txt           # Project dependencies
+```
 
+## 🚀 How to Run
 
-## 💻 Software Used
-Python v-3.11.4
+### Prerequisites
+- Python 3.11.4
+- Pip package manager
+- Git (for cloning the repository)
+
+### Installation
+
+- **Clone the repository**  
+git clone https://github.com/Silas-NEQ/cosmetic-emulsion-viscosity-prediction.git
+
+- **Enter the project folder**  
+cd cosmetic-emulsion-viscosity-prediction
+
+- **Install dependencies**  
+pip install -r requirements.txt
+
+- **Run the scripts in folder order**  
+python src/01_EDA.py
 
 ## 🔬 Methodology
 

@@ -1,5 +1,10 @@
 # Previsão da viscosidade de uma emulsão para produção cosmética
 
+![Python](https://img.shields.io/badge/Python-3.11.4-blue)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Supervised-orange)
+![Status](https://img.shields.io/badge/Status-Concluído-success)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
 🧑🏻‍🔬 Projeto desenvolvido por Silas Nascimento
 LinkedIn: [www.linkedin.com/in/engquim-silas-nascimento](www.linkedin.com/in/engquim-silas-nascimento)
 
@@ -7,33 +12,54 @@ LinkedIn: [www.linkedin.com/in/engquim-silas-nascimento](www.linkedin.com/in/eng
 emulsões cosméticas, antecipando desvios de qualidade e apoiando a tomada de decisão
 sobre ajustes operacionais durante a produção 
 
-## Estrutura
+## 📁 Estrutura do Projeto
+
+```
 cosmetic_emulsion_viscosity_predict/
 │
 ├── data/
-│ ├── raw/ # Dados brutos originais
-│ ├── processed/ # Dados processados
-│ └── results/ # Resultados e métricas
+│   ├── raw/                    # Dados brutos originais
+│   ├── processed/              # Dados processados
+│   └── results/                # Resultados e métricas
 │
-├── models/ # Modelos treinados
-├── src/ # Código fonte
-│ ├── 01_EDA.py # Análise exploratória
-│ ├── 02_preprocessing.py # Pré-processamento
-│ ├── 03_modeling.py # Treinamento de modelos
-│ ├── 04_cross_validation.py # Validação cruzada
-│ ├── 05_dimensionality_analyse.py # Análise dimensional
-│ ├── 06_final_models.py # Treinamento dos modelos finais
-│ ├── 07_conclusion.py # Testes finais
-│ └── util.py # Funções auxiliares
+├── models/                     # Modelos treinados
+├── src/                        # Código fonte
+│   ├── 01_EDA.py              # Análise exploratória
+│   ├── 02_preprocessing.py    # Pré-processamento
+│   ├── 03_modeling.py         # Treinamento de modelos
+│   ├── 04_cross_validation.py # Validação cruzada
+│   ├── 05_dimensionality_analyse.py # Análise dimensional
+│   ├── 06_final_models.py     # Treinamento dos modelos finais
+│   ├── 07_conclusion.py       # Testes finais
+│   └── util.py                # Funções auxiliares
 │
-├── README_PT-BR.md # Este arquivo
-├── README.md # Apresentação do projeto (Versão em inglês)
-├── REPORT_PT-BR.md # Relatório técnico
-├── REPORT.md # Relatório técnico (Versão em inglês)
-└── requirements.txt # Dependências do projeto
+├── README.md                  # Apresentação do projeto (Versão em inglês)
+├── README(PT-BR).md           # Este arquivo
+├── REPORT.md                  # Relatório técnico (Versão em inglês)
+├── REPORT(PT-BR).md           # Relatório técnico
+└── requirements.txt           # Dependências do projeto
+```
 
-## Softwares utilizados
-Python v-3.11.4
+## 🚀 Como Executar
+
+### Pré-requisitos
+- Python 3.11.4 
+- Gerenciador de pacotes pip
+- Git (para clonar o repositório)
+
+### Instalação
+
+- **Clone o repositório**
+git clone https://github.com/Silas-NEQ/cosmetic-emulsion-viscosity-prediction.git
+
+- **Entre na pasta do projeto**
+cd cosmetic-emulsion-viscosity-prediction
+
+- **Instale as dependências**
+pip install -r requirements.txt
+
+- **Execute os scripts na ordem da pasta**
+python src/01_EDA.py
 
 ## Metodologia
 🔍 Análise Exploratória (EDA)
